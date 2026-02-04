@@ -1,84 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine ❤️</title>
 
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{
-      font-family:'Segoe UI',sans-serif;
-      background:linear-gradient(135deg,#ff758c,#ff7eb3);
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      color:white;
-      padding:20px;
-    }
-    .container{
-      background:rgba(255,255,255,0.15);
-      backdrop-filter:blur(12px);
-      border-radius:22px;
-      max-width:420px;
-      width:100%;
-      padding:30px 25px 35px;
-      text-align:center;
-      box-shadow:0 15px 35px rgba(0,0,0,0.25);
-      animation:fadeIn 1.5s ease;
-    }
-    .photo{
-      width:100%;
-      border-radius:18px;
-      margin-bottom:20px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.25);
-    }
-    .text{
-      font-size:1.05rem;
-      line-height:1.6;
-      margin-bottom:25px;
-    }
-    button{
-      background:linear-gradient(135deg,#ff4d6d,#ff1e56);
-      border:none;
-      padding:14px 32px;
-      border-radius:35px;
-      font-size:1.05rem;
-      color:white;
-      cursor:pointer;
-      box-shadow:0 8px 20px rgba(0,0,0,0.25);
-      transition:.2s;
-    }
-    button:hover{transform:scale(1.07);}
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(20px);}
-      to{opacity:1;transform:translateY(0);}
-    }
-  </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  padding:20px;
+}
+.container{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  border-radius:22px;
+  max-width:420px;
+  width:100%;
+  padding:30px 25px;
+  text-align:center;
+  box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+.photo{
+  width:100%;
+  border-radius:18px;
+  margin-bottom:20px;
+}
+.text{
+  font-size:1.05rem;
+  line-height:1.6;
+  margin-bottom:25px;
+}
+button{
+  background:linear-gradient(135deg,#ff4d6d,#ff1e56);
+  border:none;
+  padding:14px 32px;
+  border-radius:35px;
+  font-size:1.05rem;
+  color:white;
+  cursor:pointer;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <img src="couple.jpg" class="photo" alt="Couple">
+<div class="container">
+  <img src="couple.jpg" class="photo">
 
-    <div class="text">
-      <strong>My dear future wifey,</strong><br>
-      you are already my Valentine and the mother of our future children...<br><br>
-      But although we are couples, I can't miss the Valentine’s Day celebration moment.
-    </div>
-
-    <button onclick="begin()">So let’s begin ❤️</button>
-    <audio id="bgMusic" src="song.mp3"></audio>
+  <div class="text">
+    <strong>My dear future wifey,</strong><br>
+    you are already my Valentine and the mother of our future children...<br><br>
+    But although we are couples, I can't miss the Valentine’s Day celebration moment.
   </div>
 
-  <script>
-    function begin(){
-      const music=document.getElementById("bgMusic");
-      music.play().catch(()=>{});
-      localStorage.setItem("playMusic","yes");
-      window.location.href="next.html";
-    }
-  </script>
+  <button onclick="begin()">So let’s begin ❤️</button>
+  <audio id="bgMusic" src="song.mp3"></audio>
+</div>
+
+<script>
+function begin(){
+  const music=document.getElementById("bgMusic");
+  music.play().catch(()=>{});
+  localStorage.setItem("playMusic","yes");
+  window.location.href="next.html";
+}
+</script>
 </body>
 </html>
