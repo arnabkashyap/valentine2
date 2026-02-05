@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valentine ❤️</title>
 
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     @keyframes gradientShift {
       0% { background-position: 0% 50%; }
@@ -24,19 +18,9 @@
       100% { background-position: 0% 50%; }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
     body {
       font-family: 'Outfit', sans-serif;
-      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background: linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);
       background-size: 400% 400%;
       animation: gradientShift 15s ease infinite;
       min-height: 100vh;
@@ -48,22 +32,20 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(20px);
       border-radius: 24px;
       max-width: 460px;
       width: 100%;
       padding: 35px 30px;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 1s ease-out;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     }
 
     .photo {
       width: 100%;
       border-radius: 20px;
       margin-bottom: 25px;
-      animation: float 3s ease-in-out infinite;
       box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     }
 
@@ -74,7 +56,7 @@
     }
 
     button {
-      background: linear-gradient(135deg, #ff4d6d, #ff1e56);
+      background: linear-gradient(135deg,#ff4d6d,#ff1e56);
       border: none;
       padding: 16px 40px;
       border-radius: 40px;
@@ -82,59 +64,45 @@
       font-weight: 600;
       color: white;
       cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
-    }
-
-    button:hover {
-      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(255,77,109,0.4);
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
-    <!-- CHANGE IMAGE NAME HERE -->
-    <img src="couple.jpeg" class="photo">
+<div class="container">
+  <img src="couple.jpeg" class="photo">
 
-    <!-- CHANGE TEXT HERE -->
-    <div class="text">
-      <strong>My dear future wifey,</strong><br>
-      you are already my Valentine and the mother of our future children...<br><br>
-      But although we are couples, I can't miss the Valentine's Day celebration moment.
-    </div>
-
-    <button onclick="begin()">So let's begin ❤️</button>
-
-    <!-- MUSIC FILE -->
-    <audio id="bgMusic" preload="auto" playsinline>
-      <source src="song.mp3" type="audio/mpeg">
-    </audio>
+  <div class="text">
+    <strong>My dear future wifey,</strong><br>
+    you are already my Valentine and the mother of our future children...
   </div>
 
-  <script>
-    function begin() {
-      const music = document.getElementById("bgMusic");
+  <button onclick="begin()">So let’s begin ❤️</button>
 
-      // FORCE PLAY (works on Chrome, mobile, GitHub Pages)
-      music.currentTime = 0;
-      music.muted = false;
-      music.volume = 1;
+  <audio id="bgMusic" src="song.mp3" preload="auto"></audio>
+</div>
 
-      music.play().catch(err => {
-        console.log("Audio blocked:", err);
-      });
+<script>
+function begin() {
+  const music = document.getElementById("bgMusic");
 
-      // Remember to play on next page
-      localStorage.setItem("playMusic", "yes");
+  music.currentTime = 0; // START FROM FIRST
+  music.play().catch(()=>{});
 
-      // Small delay so music starts before redirect
-      setTimeout(() => {
-        window.location.href = "next.html";
-      }, 800);
-    }
-  </script>
+  localStorage.setItem("musicStarted", "yes");
+  localStorage.setItem("musicTime", "0");
+
+  setInterval(() => {
+    localStorage.setItem("musicTime", music.currentTime);
+  }, 1000);
+
+  setTimeout(() => {
+    window.location.href = "next.html";
+  }, 800);
+}
+</script>
 
 </body>
 </html>
