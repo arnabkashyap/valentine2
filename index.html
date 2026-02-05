@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,11 @@
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     body {
@@ -40,6 +46,7 @@
       padding: 35px 30px;
       text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease-out;
     }
 
     .photo {
@@ -79,16 +86,19 @@
     you are already my Valentine and the mother of our future children...
   </div>
 
-  <button onclick="begin()">So let’s begin ❤️</button>
+  <button onclick="begin()">So let's begin ❤️</button>
 
-  <audio id="bgMusic" src="song.mp3" preload="auto"></audio>
+  <audio id="bgMusic" preload="auto">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
 </div>
 
 <script>
 function begin() {
   const music = document.getElementById("bgMusic");
 
-  music.currentTime = 0; // START FROM FIRST
+  music.currentTime = 0;        // START FROM FIRST
+  music.volume = 1;
   music.play().catch(()=>{});
 
   localStorage.setItem("musicStarted", "yes");
