@@ -1,531 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Memories ❤️</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Memories ❤️</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-      50% {
-        background-position: 100% 50%;
-      }
+body {
+  font-family:'Outfit',sans-serif;
+  background:linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);
+  background-size:400% 400%;
+  animation:gradientShift 15s ease infinite;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  padding:20px;
+}
 
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+@keyframes gradientShift {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-      }
+.container { max-width:520px; width:100%; text-align:center; }
 
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+.slide-container {
+  position:relative;
+  width:100%;
+  height:480px;
+  overflow:hidden;
+  border-radius:18px;
+}
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+.slide-image {
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity .8s ease;
+}
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.slide-image.active { opacity:1; }
 
-    @keyframes pulse {
+.progress-container {
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  margin:15px 0;
+}
 
-      0%,
-      100% {
-        transform: scale(1);
-      }
+.progress-dot {
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(255,255,255,.3);
+  cursor:pointer;
+}
 
-      50% {
-        transform: scale(1.05);
-      }
-    }
+.progress-dot.active {
+  background:white;
+  width:28px;
+  border-radius:5px;
+}
 
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      padding: 20px;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 520px;
-      width: 100%;
-      text-align: center;
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    h2 {
-      margin-bottom: 25px;
-      font-size: 1.8rem;
-      font-weight: 700;
-      text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
-      animation: slideIn 0.6s ease-out;
-    }
-
-    .slider-wrapper {
-      position: relative;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      margin-bottom: 20px;
-    }
-
-    .slide-container {
-      position: relative;
-      width: 100%;
-      height: 480px;
-      overflow: hidden;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    /* Responsive aspect ratio for slides */
-    @media (max-width: 600px) {
-      .slide-container {
-        height: 65vh;
-        max-height: 480px;
-      }
-    }
-
-    .slide-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-      transform: scale(1.1);
-    }
-
-    .slide-image.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      font-size: 1.8rem;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav:hover {
-      background: rgba(255, 255, 255, 0.4);
-      transform: translateY(-50%) scale(1.1);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav.left {
-      left: 10px;
-    }
-
-    .nav.right {
-      right: 10px;
-    }
-
-    .progress-container {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .progress-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .progress-dot.active {
-      background: white;
-      width: 28px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-    }
-
-    .progress-dot:hover {
-      background: rgba(255, 255, 255, 0.6);
-      transform: scale(1.2);
-    }
-
-    .controls {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .control-btn {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      padding: 12px 24px;
-      border-radius: 30px;
-      color: white;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    .control-btn:hover {
-      background: rgba(255, 255, 255, 0.35);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .control-btn.active {
-      background: linear-gradient(135deg, #ff4d6d, #ff1e56);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-
-
-    .music-reminder {
-      margin-top: 20px;
-      background: rgba(255, 77, 109, 0.25);
-      backdrop-filter: blur(10px);
-      padding: 12px 20px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    .letter-box {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 30px;
-      min-height: 180px;
-      margin-top: 25px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      line-height: 1.7;
-    }
-
-    .heart-frame {
-      width: 240px;
-      height: 220px;
-      margin: 0 auto 25px;
-      clip-path: path('M120 200 C25 135 0 90 40 45 C70 15 110 35 120 65
- C130 35 170 15 200 45 C240 90 215 135 120 200 Z'
-);
-      overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .heart-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .end-text {
-      margin: 25px 0;
-      line-height: 1.7;
-      font-size: 1.05rem;
-    }
-
-    button {
-      background: linear-gradient(135deg, #ff4d6d, #ff1e56);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 35px;
-      color: white;
-      cursor: pointer;
-      font-size: 1.05rem;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
-    }
-
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(255, 77, 109, 0.5);
-    }
-
-    @media (max-width:480px) {
-      h2 {
-        font-size: 1.4rem;
-      }
-
-      .slide-container {
-        height: 60vh;
-        /* Better for mobile */
-      }
-
-      .nav {
-        width: 42px;
-        height: 42px;
-        font-size: 1.5rem;
-      }
-
-      .container {
-        padding: 10px;
-        width: 95%;
-        /* More width on small screens */
-      }
-
-      button {
-        padding: 12px 24px;
-        font-size: 0.95rem;
-      }
-    }
-  </style>
+button {
+  background:linear-gradient(135deg,#ff4d6d,#ff1e56);
+  border:none;
+  padding:14px 30px;
+  border-radius:35px;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:15px;
+}
+</style>
 </head>
 
 <body>
-  <!-- Background Music (local file) -->
-  <audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
 
+<audio id="bgMusic" src="song.mp3" loop></audio>
 
+<div class="container">
 
-  <div class="container">
+<h2>Some of our beautiful memories 💕</h2>
 
+<div id="sliderSection">
+  <div class="slide-container" id="slideContainer"></div>
+  <div class="progress-container" id="progressDots"></div>
+  <button onclick="showLetter()">Continue ❤️</button>
+</div>
 
+<div id="letterSection" style="display:none;">
+  <h2>A Special Message 💌</h2>
+  <div class="letter-box"></div>
+  <button onclick="showFinal()">Continue ❤️</button>
+</div>
 
-    <h2>Some of our beautiful memories 💕</h2>
+<div id="finalSection" style="display:none;">
+  <h2>Forever & Always 💖</h2>
+  <img src="final.jpeg" style="width:240px;border-radius:20px">
+  <p>Hope you loved it 😘</p>
+  <button onclick="replay()">Replay 🔁</button>
+</div>
 
-    <!-- SLIDESHOW -->
-    <div id="sliderSection">
-      <div class="slider-wrapper">
-        <div class="slide-container" id="slideContainer">
-          <!-- Images will be dynamically added here -->
-        </div>
-        <button class="nav left" onclick="prevImage()">❮</button>
-        <button class="nav right" onclick="nextImage()">❯</button>
-        <div class="progress-container" id="progressDots"></div>
-      </div>
+</div>
 
-      <div class="controls">
-        <button class="control-btn" id="autoplayBtn" onclick="toggleAutoplay()">▶ Auto Play</button>
-        <button class="control-btn" onclick="showLetter()">Continue to Letter ❤️</button>
-      </div>
+<script>
+const images = ["img1.jpeg","img2.jpeg","img3.jpeg"];
+let index = 0;
 
+const container = document.getElementById("slideContainer");
+const dots = document.getElementById("progressDots");
 
-    </div>
+images.forEach((src,i)=>{
+  const img=document.createElement("img");
+  img.src=src;
+  img.className="slide-image"+(i===0?" active":"");
+  container.appendChild(img);
 
-    <!-- LETTER -->
-    <div id="letterSection" style="display:none;">
-      <h2>A Special Message 💌</h2>
-      <div class="letter-box">
-        <p>Every moment with you is a treasure,<br>
-          Every smile you share is pure pleasure.<br>
-          Through all the seasons, rain or shine,<br>
-          I'm grateful that you are mine.<br><br>
-          These memories we've created together,<br>
-          Are bonds that will last forever. ❤️</p>
-      </div>
-      <button onclick="showFinal()">Continue ❤️</button>
-    </div>
+  const dot=document.createElement("div");
+  dot.className="progress-dot"+(i===0?" active":"");
+  dot.onclick=()=>goTo(i);
+  dots.appendChild(dot);
+});
 
-    <!-- FINAL -->
-    <div id="finalSection" style="display:none;">
-      <h2>Forever & Always 💖</h2>
-      <div class="heart-frame">
-        <img src="final.jpeg">
-      </div>
-      <p class="end-text">
-        you know that i'm just a beginner 😗,<br>
-        so that's it for today 😘... hope you love it🤧
-      </p>
-      <button onclick="replay()">Replay 🔁</button>
-    </div>
+function goTo(i){
+  index=i;
+  document.querySelectorAll(".slide-image").forEach((img,j)=>{
+    img.classList.toggle("active",j===i);
+  });
+  document.querySelectorAll(".progress-dot").forEach((d,j)=>{
+    d.classList.toggle("active",j===i);
+  });
+}
 
-  </div>
+// MUSIC CONTINUITY
+const bgMusic=document.getElementById("bgMusic");
 
-  <script>
-    const images = [
-      "img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg",
-      "img5.jpeg", "img6.jpeg", "img7.jpeg", "img8.jpeg",
-      "img9.jpeg", "img10.jpeg", "img11.jpeg", "img12.jpeg"
-    ];
+if(localStorage.getItem("musicStarted")==="yes"){
+  const t=localStorage.getItem("musicTime");
+  if(t) bgMusic.currentTime=parseFloat(t);
+  bgMusic.play().catch(()=>{});
+  setInterval(()=> {
+    localStorage.setItem("musicTime", bgMusic.currentTime);
+  },1000);
+}
 
-    let currentIndex = 0;
-    let autoplayInterval = null;
-    let isAutoPlaying = false;
+function showLetter(){
+  sliderSection.style.display="none";
+  letterSection.style.display="block";
+}
 
-    const container = document.getElementById("slideContainer");
-    const progressContainer = document.getElementById("progressDots");
-    const autoplayBtn = document.getElementById("autoplayBtn");
+function showFinal(){
+  letterSection.style.display="none";
+  finalSection.style.display="block";
+}
 
-    // Initialize slideshow
-    function initSlideshow() {
-      // Create image elements
-      images.forEach((imgSrc, idx) => {
-        const img = document.createElement("img");
-        img.src = imgSrc;
-        img.className = "slide-image";
-        if (idx === 0) img.classList.add("active");
-        container.appendChild(img);
-      });
+function replay(){
+  window.location.href="index.html"; // MUSIC CONTINUES
+}
+</script>
 
-      // Create progress dots
-      images.forEach((_, idx) => {
-        const dot = document.createElement("div");
-        dot.className = "progress-dot";
-        if (idx === 0) dot.classList.add("active");
-        dot.onclick = () => goToSlide(idx);
-        progressContainer.appendChild(dot);
-      });
-    }
-
-    function updateSlide() {
-      const slides = document.querySelectorAll(".slide-image");
-      const dots = document.querySelectorAll(".progress-dot");
-
-      slides.forEach((slide, idx) => {
-        slide.classList.toggle("active", idx === currentIndex);
-      });
-
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle("active", idx === currentIndex);
-      });
-    }
-
-    function nextImage() {
-      currentIndex = (currentIndex + 1) % images.length;
-      updateSlide();
-    }
-
-    function prevImage() {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      updateSlide();
-    }
-
-    function goToSlide(index) {
-      currentIndex = index;
-      updateSlide();
-    }
-
-    function toggleAutoplay() {
-      if (isAutoPlaying) {
-        clearInterval(autoplayInterval);
-        isAutoPlaying = false;
-        autoplayBtn.innerHTML = "▶ Auto Play";
-        autoplayBtn.classList.remove("active");
-      } else {
-        autoplayInterval = setInterval(nextImage, 3000);
-        isAutoPlaying = true;
-        autoplayBtn.innerHTML = "⏸ Pause";
-        autoplayBtn.classList.add("active");
-      }
-    }
-
-    function showLetter() {
-      if (isAutoPlaying) toggleAutoplay();
-      document.getElementById("sliderSection").style.display = "none";
-      document.getElementById("letterSection").style.display = "block";
-      document.querySelector("#letterSection").style.animation = "fadeIn 0.8s ease-out";
-    }
-
-    function showFinal() {
-      document.getElementById("letterSection").style.display = "none";
-      document.getElementById("finalSection").style.display = "block";
-      document.querySelector("#finalSection").style.animation = "fadeIn 0.8s ease-out";
-    }
-
-    // Swipe support for mobile
-    let startX = 0;
-    container.addEventListener("touchstart", e => {
-      startX = e.touches[0].clientX;
-    });
-
-    container.addEventListener("touchend", e => {
-      let endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) nextImage();
-      if (endX - startX > 50) prevImage();
-    });
-
-    // Keyboard navigation
-    document.addEventListener("keydown", e => {
-      if (e.key === "ArrowLeft") prevImage();
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === " ") toggleAutoplay();
-    });
-
-    // Initialize on load
-    initSlideshow();
-
-    // ===== MUSIC AUTOPLAY SYSTEM =====
-    const bgMusic = document.getElementById("bgMusic");
-
-    // Autoplay music if coming from intro page
-    if (localStorage.getItem("playMusic") === "yes") {
-      bgMusic.play().catch(err => {
-        console.log("Autoplay blocked:", err);
-      });
-    }
-
-
-    // Clean up on replay
-    function replay() {
-      localStorage.removeItem("playMusic");
-      bgMusic.pause();
-      window.location.href = "index.html";
-    }
-  </script>
 </body>
-
-
 </html>
-
