@@ -1,141 +1,194 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine ❤️</title>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  padding:20px;
+}
+.container{
+  max-width:420px;
+  width:100%;
+  text-align:center;
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+/* COMMON */
+button{
+  background:linear-gradient(135deg,#ff4d6d,#ff1e56);
+  border:none;
+  padding:14px 30px;
+  border-radius:35px;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+}
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+/* INTRO */
+#intro img{
+  width:100%;
+  border-radius:18px;
+  margin-bottom:20px;
+}
+#intro .text{
+  line-height:1.6;
+  margin-bottom:25px;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+/* SLIDER */
+.slider-wrapper{position:relative;margin-top:15px;}
+#slide{width:100%;border-radius:18px;}
+.nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.35);
+  border:none;
+  color:white;
+  font-size:2rem;
+  padding:10px 14px;
+  border-radius:50%;
+  cursor:pointer;
+}
+.nav.left{left:-12px;}
+.nav.right{right:-12px;}
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
+/* LETTER */
+.letter-box{
+  background:rgba(255,255,255,0.2);
+  border-radius:18px;
+  padding:25px;
+  min-height:160px;
+  margin-top:25px;
+}
 
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      padding: 20px;
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      max-width: 460px;
-      width: 100%;
-      padding: 35px 30px;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 1s ease-out;
-    }
-
-    .photo {
-      width: 100%;
-      border-radius: 20px;
-      margin-bottom: 25px;
-      animation: float 3s ease-in-out infinite;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    }
-
-    .text {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 30px;
-    }
-
-    button {
-      background: linear-gradient(135deg, #ff4d6d, #ff1e56);
-      border: none;
-      padding: 16px 40px;
-      border-radius: 40px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
-    }
-
-    button:hover {
-      transform: translateY(-4px);
-    }
-  </style>
+/* HEART */
+.heart-frame{
+  width:220px;
+  height:200px;
+  margin:0 auto 20px;
+  clip-path:path(
+    'M110 190 C20 120 0 80 40 40 C70 10 110 30 110 60
+     C110 30 150 10 180 40 C220 80 200 120 110 190 Z'
+  );
+  overflow:hidden;
+}
+.heart-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.end-text{line-height:1.6;margin:20px 0;}
+</style>
 </head>
 
 <body>
+<div class="container">
 
-  <div class="container">
-    <!-- CHANGE IMAGE NAME HERE -->
-    <img src="couple.jpeg" class="photo">
+<!-- 🎵 MUSIC (ONLY ONCE) -->
+<audio id="bgMusic" src="song.mp3" loop></audio>
 
-    <!-- CHANGE TEXT HERE -->
-    <div class="text">
-      <strong>My dear future wifey,</strong><br>
-      you are already my Valentine and the mother of our future children...<br><br>
-      But although we are couples, I can't miss the Valentine's Day celebration moment.
-    </div>
-
-    <button onclick="begin()">So let's begin ❤️</button>
-
-    <!-- MUSIC FILE -->
-    <audio id="bgMusic" preload="auto" playsinline>
-      <source src="song.mp3" type="audio/mpeg">
-    </audio>
+<!-- 🔹 INTRO -->
+<div id="intro">
+  <img src="couple.jpg">
+  <div class="text">
+    <strong>My dear future wifey,</strong><br>
+    you are already my Valentine and the mother of our future children...<br><br>
+    But although we are couples, I can't miss the Valentine’s Day celebration moment.
   </div>
+  <button onclick="begin()">So let’s begin ❤️</button>
+</div>
 
-  <script>
-    function begin() {
-      const music = document.getElementById("bgMusic");
+<!-- 🔹 SLIDESHOW -->
+<div id="slideshow" style="display:none;">
+  <h2>Some of our beautiful memories 💕</h2>
 
-      // FORCE PLAY (works on Chrome, mobile, GitHub Pages)
-      music.currentTime = 0;
-      music.muted = false;
-      music.volume = 1;
+  <div class="slider-wrapper">
+    <button class="nav left" onclick="prevImage()">❮</button>
+    <img id="slide" src="img1.jpeg">
+    <button class="nav right" onclick="nextImage()">❯</button>
+  </div>
+</div>
 
-      music.play().catch(err => {
-        console.log("Audio blocked:", err);
-      });
+<!-- 🔹 LETTER -->
+<div id="letter" style="display:none;">
+  <div class="letter-box">
+    <!-- write your letter later -->
+  </div>
+  <button onclick="showFinal()">Continue ❤️</button>
+</div>
 
-      // Remember to play on next page
-      localStorage.setItem("playMusic", "yes");
+<!-- 🔹 FINAL -->
+<div id="final" style="display:none;">
+  <div class="heart-frame">
+    <img src="final.jpeg">
+  </div>
+  <p class="end-text">
+    you know that i'm just a beginner 😗,<br>
+    so that's it for today 😘... hope you enjoy
+  </p>
+  <button onclick="replay()">Replay 🔁</button>
+</div>
 
-      // Small delay so music starts before redirect
-      setTimeout(() => {
-        window.location.href = "next.html";
-      }, 800);
-    }
-  </script>
+</div>
 
+<script>
+/* MUSIC START */
+function begin(){
+  document.getElementById("bgMusic").play().catch(()=>{});
+  document.getElementById("intro").style.display="none";
+  document.getElementById("slideshow").style.display="block";
+}
+
+/* SLIDESHOW */
+const images=[
+  "img1.jpeg","img2.jpeg","img3.jpeg","img4.jpeg",
+  "img5.jpeg","img6.jpeg","img7.jpeg","img8.jpeg",
+  "img9.jpeg","img10.jpeg","img11.jpeg","img12.jpeg"
+];
+let index=0;
+const slide=document.getElementById("slide");
+
+function nextImage(){
+  if(index===images.length-1){
+    document.getElementById("slideshow").style.display="none";
+    document.getElementById("letter").style.display="block";
+    return;
+  }
+  index++;
+  slide.src=images[index];
+}
+function prevImage(){
+  if(index>0){
+    index--;
+    slide.src=images[index];
+  }
+}
+
+/* FINAL */
+function showFinal(){
+  document.getElementById("letter").style.display="none";
+  document.getElementById("final").style.display="block";
+}
+
+/* REPLAY (NO MUSIC RESET) */
+function replay(){
+  index=0;
+  slide.src=images[0];
+
+  document.getElementById("final").style.display="none";
+  document.getElementById("intro").style.display="block";
+}
+</script>
 </body>
 </html>
