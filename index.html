@@ -108,31 +108,41 @@
     <button onclick="begin()">So let's begin ❤️</button>
 
     <!-- MUSIC FILE -->
-    <audio id="bgMusic" preload="auto" playsinline>
+    <audio id="bgMusic" preload="auto" playsinline loop>
       <source src="song.mp3" type="audio/mpeg">
     </audio>
   </div>
 
   <script>
-    function begin() {
-      const music = document.getElementById("bgMusic");
+    const music = document.getElementById("bgMusic");
 
-      // FORCE PLAY (works on Chrome, mobile, GitHub Pages)
+    // AUTO-START MUSIC WHEN PAGE LOADS
+    window.addEventListener('load', function() {
       music.currentTime = 0;
       music.muted = false;
       music.volume = 1;
-
       music.play().catch(err => {
-        console.log("Audio blocked:", err);
+        console.log("Audio autoplay blocked (user interaction may be required):", err);
       });
+    });
 
-      // Remember to play on next page
+    // Also try to play on user interaction
+    document.addEventListener('click', function() {
+      if (music.paused) {
+        music.play().catch(err => {
+          console.log("Audio playback error:", err);
+        });
+      }
+    }, { once: true });
+
+    function begin() {
+      // Remember to keep music playing on next page
       localStorage.setItem("playMusic", "yes");
 
-      // Small delay so music starts before redirect
+      // Small delay so music continues smoothly
       setTimeout(() => {
         window.location.href = "next.html";
-      }, 800);
+      }, 500);
     }
   </script>
 
